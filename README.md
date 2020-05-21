@@ -1,4 +1,4 @@
-# Vivian Huynh (pd. 5) & Alice Ni (pd. 10)
+# Vivian Huynh (pd. 4) & Alice Ni (pd. 10)
 
 ## Features to Implement
 New shapes:
