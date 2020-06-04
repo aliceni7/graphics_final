@@ -12,45 +12,49 @@ tokens = (
     "SAVE_COORDS",
     "CAMERA",
     "AMBIENT",
+    "CONE",
+    "CYLINDER",
     "TORUS",
     "SPHERE",
-    "BOX", 
-    "LINE", 
-    "MESH", 
-    "TEXTURE", 
-    "SET", 
-    "MOVE", 
-    "SCALE", 
-    "ROTATE", 
-    "BASENAME", 
-    "SAVE_KNOBS", 
-    "TWEEN", 
-    "FRAMES", 
-    "VARY", 
-    "PUSH", 
-    "POP", 
-    "SAVE", 
-    "GENERATE_RAYFILES", 
-    "SHADING", 
-    "SHADING_TYPE", 
-    "SET_KNOBS", 
-    "FOCAL", 
-    "DISPLAY", 
-    "SCREEN", 
-    "WEB", 
+    "BOX",
+    "LINE",
+    "MESH",
+    "TEXTURE",
+    "SET",
+    "MOVE",
+    "SCALE",
+    "ROTATE",
+    "BASENAME",
+    "SAVE_KNOBS",
+    "TWEEN",
+    "FRAMES",
+    "VARY",
+    "PUSH",
+    "POP",
+    "SAVE",
+    "GENERATE_RAYFILES",
+    "SHADING",
+    "SHADING_TYPE",
+    "SET_KNOBS",
+    "FOCAL",
+    "DISPLAY",
+    "SCREEN",
+    "WEB",
     "CO"
 )
 
 reserved = {
-    "x" : "XYZ", 
-    "y" : "XYZ", 
-    "z" : "XYZ", 
-    "screen" : "SCREEN", 
+    "x" : "XYZ",
+    "y" : "XYZ",
+    "z" : "XYZ",
+    "screen" : "SCREEN",
     "light" : "LIGHT",
     "constants" : "CONSTANTS",
-    "save_coord_system" : "SAVE_COORDS", 
+    "save_coord_system" : "SAVE_COORDS",
     "camera" : "CAMERA",
     "ambient" : "AMBIENT",
+    "cone" : "CONE",
+    "cylinder" : "CYLINDER",
     "torus" : "TORUS",
     "sphere" : "SPHERE",
     "box" : "BOX",
@@ -161,6 +165,40 @@ def p_command_save(p):
 def p_command_show(p):
     """command : DISPLAY"""
     commands.append({'op' : p[1], 'args' : None})
+
+def p_command_cone(p):
+    """command : CONE NUMBER NUMBER NUMBER NUMBER NUMBER
+               | CONE SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER
+               | CONE NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL
+               | CONE SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'constants' : None, 'cs' : None, 'args':[]}
+    arg_start = 2
+    if isinstance(p[2], str):
+        cmd['constants'] = p[2]
+        arg_start = 3
+    if len(p) == 8 and isinstance(p[7], str):
+        cmd['cs'] = p[7]
+    if len(p) == 9 and isinstance(p[8], str):
+          cmd['cs'] = p[8]
+    cmd['args'] = p[arg_start:arg_start+5]
+    commands.append(cmd)
+
+def p_command_cylinder(p):
+    """command : CYLINDER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | CYLINDER SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER
+               | CYLINDER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL
+               | CYLINDER SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'constants' : None, 'cs' : None, 'args':[]}
+    arg_start = 2
+    if isinstance(p[2], str):
+        cmd['constants'] = p[2]
+        arg_start = 3
+    if len(p) == 8 and isinstance(p[7], str):
+        cmd['cs'] = p[7]
+    if len(p) == 9 and isinstance(p[8], str):
+          cmd['cs'] = p[8]
+    cmd['args'] = p[arg_start:arg_start+5]
+    commands.append(cmd)
 
 def p_command_sphere(p):
     """command : SPHERE NUMBER NUMBER NUMBER NUMBER
