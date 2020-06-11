@@ -3,8 +3,9 @@
 ## Features to Implement
 New shapes:
 * Cones (x, y, z, radius, height)
-* Pyramids
+* Pyramids (x, y, z, sides, radius, height)
 * Cylinders (x, y, z, radius, height)
+* Prisms (x, y, z, sides, radius, height)
 
 Existing MDL commands:
 * light

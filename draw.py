@@ -30,12 +30,6 @@ def scanline_convert(polygons, i, screen, zbuffer, color):
                (polygons[i+1][0], polygons[i+1][1], polygons[i+1][2]),
                (polygons[i+2][0], polygons[i+2][1], polygons[i+2][2]) ]
 
-    # alas random color, we hardly knew ye
-    #color = [0,0,0]
-    #color[RED] = (23*(i/3)) %256
-    #color[GREEN] = (109*(i/3)) %256
-    #color[BLUE] = (227*(i/3)) %256
-
     points.sort(key = lambda x: x[1])
     x0 = points[BOT][0]
     z0 = points[BOT][2]
@@ -75,6 +69,10 @@ def add_polygon( polygons, x0, y0, z0, x1, y1, z1, x2, y2, z2 ):
     add_point(polygons, x0, y0, z0)
     add_point(polygons, x1, y1, z1)
     add_point(polygons, x2, y2, z2)
+    # print([x0, y0, z0])
+    # print([x1, y1, z1])
+    # print([x2, y2, z2])
+    # print()
 
 def draw_polygons( polygons, screen, zbuffer, view, ambient, light, symbols, reflect):
     if len(polygons) < 2:
@@ -85,35 +83,63 @@ def draw_polygons( polygons, screen, zbuffer, view, ambient, light, symbols, ref
     while point < len(polygons) - 2:
 
         normal = calculate_normal(polygons, point)[:]
-
-        #print normal
         if normal[2] > 0:
 
             color = get_lighting(normal, view, ambient, light, symbols, reflect )
             scanline_convert(polygons, point, screen, zbuffer, color)
 
-            # draw_line( int(polygons[point][0]),
-            #            int(polygons[point][1]),
-            #            polygons[point][2],
-            #            int(polygons[point+1][0]),
-            #            int(polygons[point+1][1]),
-            #            polygons[point+1][2],
-            #            screen, zbuffer, color)
-            # draw_line( int(polygons[point+2][0]),
-            #            int(polygons[point+2][1]),
-            #            polygons[point+2][2],
-            #            int(polygons[point+1][0]),
-            #            int(polygons[point+1][1]),
-            #            polygons[point+1][2],
-            #            screen, zbuffer, color)
-            # draw_line( int(polygons[point][0]),
-            #            int(polygons[point][1]),
-            #            polygons[point][2],
-            #            int(polygons[point+2][0]),
-            #            int(polygons[point+2][1]),
-            #            polygons[point+2][2],
-            #            screen, zbuffer, color)
         point+= 3
+
+def add_cone( polygons, x, y, z, radius, height, step):
+    circle = generate_horiz_circle(x, y, z, radius, step)
+    top = [x, y + height, z]
+
+    i = 0
+    while i < len(circle) - 1:
+        p0 = circle[i]
+        p1 = circle[i + 1]
+        add_polygon(polygons, p0[0], p0[1], p0[2], p1[0], p1[1], p1[2], top[0], top[1], top[2])
+        add_polygon(polygons, p0[0], p0[1], p0[2], p1[0], p1[1], p1[2], x, y, z)
+
+        i += 1
+
+    p0 = circle[len(circle)-1]
+    p1 = circle[0]
+    add_polygon(polygons, p0[0], p0[1], p0[2], p1[0], p1[1], p1[2], top[0], top[1], top[2])
+    add_polygon(polygons, p0[0], p0[1], p0[2], p1[0], p1[1], p1[2], x, y, z)
+
+
+def add_cylinder( polygons, x, y, z, radius, height, step):
+    bottom = generate_horiz_circle(x, y, z, radius, step)
+    top = generate_horiz_circle(x, y + height, z, radius, step)
+
+    cbot = [x, y, z]
+    ctop = [x, y + height, z]
+
+    i = 0
+    while i < len(bottom) - 1:
+        b0 = bottom[i]
+        b1 = bottom[i + 1]
+        t0 = top[i]
+        t1 = top[i + 1]
+        add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], t0[0], t0[1], t0[2])
+        add_polygon(polygons, t0[0], t0[1], t0[2], t1[0], t1[1], t1[2], b1[0], b1[1], b1[2])
+        add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], cbot[0], cbot[1], cbot[2])
+        add_polygon(polygons, t0[0], t0[1], t0[2], t1[0], t1[1], t1[2], ctop[0], ctop[1], ctop[2])
+
+
+        i += 1
+
+    b0 = bottom[len(bottom) - 1]
+    b1 = bottom[0]
+    t0 = top[len(top) - 1]
+    t1 = top[0]
+    add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], t0[0], t0[1], t0[2])
+    add_polygon(polygons, t0[0], t0[1], t0[2], t1[0], t1[1], t1[2], b1[0], b1[1], b1[2])
+    add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], cbot[0], cbot[1], cbot[2])
+    add_polygon(polygons, t0[0], t0[1], t0[2], t1[0], t1[1], t1[2], ctop[0], ctop[1], ctop[2])
+
+
 
 
 def add_box( polygons, x, y, z, width, height, depth ):
@@ -260,9 +286,26 @@ def generate_torus( cx, cy, cz, r0, r1, step ):
             y = r0 * math.sin(2*math.pi * circ) + cy;
             z = -1*math.sin(2*math.pi * rot) * (r0 * math.cos(2*math.pi * circ) + r1) + cz;
 
-            points.append([x, y, z])
+            points.append( [x, y, z] )
     return points
 
+def generate_horiz_circle(x, y, z, r, step ):
+    points = []
+    x0 = r + x
+    y0 = y
+    z0 = z
+    i = 1
+
+    points.append([x0, y0, z0])
+
+    while i <= step:
+        t = float(i)/step
+        x1 = r * math.cos(2*math.pi * t) + x;
+        z1 = r * math.sin(2*math.pi * t) + z;
+        points.append([x1, y0, z1])
+        i+= 1
+
+    return points
 
 def add_circle( points, cx, cy, cz, r, step ):
     x0 = r + cx
