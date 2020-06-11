@@ -16,6 +16,10 @@ tokens = (
     "CYLINDER",
     "PRISM",
     "PYRAMID",
+    "HOLLOW_CONE",
+    "HOLLOW_CYLINDER",
+    "HOLLOW_PRISM",
+    "HOLLOW_PYRAMID",
     "TORUS",
     "SPHERE",
     "BOX",
@@ -59,6 +63,10 @@ reserved = {
     "cylinder" : "CYLINDER",
     "prism" : "PRISM",
     "pyramid" : "PYRAMID",
+    "hollow_cone" : "HOLLOW_CONE",
+    "hollow_cylinder" : "HOLLOW_CYLINDER",
+    "hollow_prism" : "HOLLOW_PRISM",
+    "hollow_pyramid" : "HOLLOW_PYRAMID",
     "torus" : "TORUS",
     "sphere" : "SPHERE",
     "box" : "BOX",
@@ -187,6 +195,23 @@ def p_command_cone(p):
     cmd['args'] = p[arg_start:arg_start+5]
     commands.append(cmd)
 
+def p_command_hollow_cone(p):
+    """command : HOLLOW_CONE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | HOLLOW_CONE SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | HOLLOW_CONE NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL
+               | HOLLOW_CONE SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'constants' : None, 'cs' : None, 'args':[]}
+    arg_start = 2
+    if isinstance(p[2], str):
+        cmd['constants'] = p[2]
+        arg_start = 3
+    if len(p) == 9 and isinstance(p[8], str):
+        cmd['cs'] = p[8]
+    if len(p) == 10 and isinstance(p[9], str):
+          cmd['cs'] = p[9]
+    cmd['args'] = p[arg_start:arg_start+6]
+    commands.append(cmd)
+
 def p_command_cylinder(p):
     """command : CYLINDER NUMBER NUMBER NUMBER NUMBER NUMBER
                | CYLINDER SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER
@@ -202,6 +227,23 @@ def p_command_cylinder(p):
     if len(p) == 9 and isinstance(p[8], str):
           cmd['cs'] = p[8]
     cmd['args'] = p[arg_start:arg_start+5]
+    commands.append(cmd)
+
+def p_command_hollow_cylinder(p):
+    """command : HOLLOW_CYLINDER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | HOLLOW_CYLINDER SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | HOLLOW_CYLINDER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL
+               | HOLLOW_CYLINDER SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'constants' : None, 'cs' : None, 'args':[]}
+    arg_start = 2
+    if isinstance(p[2], str):
+        cmd['constants'] = p[2]
+        arg_start = 3
+    if len(p) == 9 and isinstance(p[8], str):
+        cmd['cs'] = p[8]
+    if len(p) == 10 and isinstance(p[9], str):
+          cmd['cs'] = p[9]
+    cmd['args'] = p[arg_start:arg_start+6]
     commands.append(cmd)
 
 def p_command_prism(p):
@@ -221,6 +263,23 @@ def p_command_prism(p):
     cmd['args'] = p[arg_start:arg_start+6]
     commands.append(cmd)
 
+def p_command_hollow_prism(p):
+    """command : HOLLOW_PRISM NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | HOLLOW_PRISM SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | HOLLOW_PRISM NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL
+               | HOLLOW_PRISM SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'constants' : None, 'cs' : None, 'args':[]}
+    arg_start = 2
+    if isinstance(p[2], str):
+        cmd['constants'] = p[2]
+        arg_start = 3
+    if len(p) == 10 and isinstance(p[9], str):
+        cmd['cs'] = p[9]
+    if len(p) == 11 and isinstance(p[10], str):
+          cmd['cs'] = p[10]
+    cmd['args'] = p[arg_start:arg_start+7]
+    commands.append(cmd)
+
 def p_command_pyramid(p):
     """command : PYRAMID NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
                | PYRAMID SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
@@ -236,6 +295,23 @@ def p_command_pyramid(p):
     if len(p) == 10 and isinstance(p[9], str):
           cmd['cs'] = p[9]
     cmd['args'] = p[arg_start:arg_start+6]
+    commands.append(cmd)
+
+def p_command_hollow_pyramid(p):
+    """command : HOLLOW_PYRAMID NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | HOLLOW_PYRAMID SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER
+               | HOLLOW_PYRAMID NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL
+               | HOLLOW_PYRAMID SYMBOL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'constants' : None, 'cs' : None, 'args':[]}
+    arg_start = 2
+    if isinstance(p[2], str):
+        cmd['constants'] = p[2]
+        arg_start = 3
+    if len(p) == 10 and isinstance(p[9], str):
+        cmd['cs'] = p[9]
+    if len(p) == 11 and isinstance(p[10], str):
+          cmd['cs'] = p[10]
+    cmd['args'] = p[arg_start:arg_start+7]
     commands.append(cmd)
 
 def p_command_sphere(p):

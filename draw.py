@@ -95,7 +95,7 @@ def add_cone( polygons, x, y, z, radius, height, step):
     top = [x, y + height, z]
 
     i = 0
-    while i < len(circle) - 1:
+    while i < len(circle) - 2:
         p0 = circle[i]
         p1 = circle[i + 1]
         add_polygon(polygons, p0[0], p0[1], p0[2], p1[0], p1[1], p1[2], top[0], top[1], top[2])
@@ -111,33 +111,28 @@ def add_cone( polygons, x, y, z, radius, height, step):
 
 def add_cylinder( polygons, x, y, z, radius, height, step):
     bottom = generate_horiz_circle(x, y, z, radius, step)
-    top = generate_horiz_circle(x, y + height, z, radius, step)
 
     cbot = [x, y, z]
     ctop = [x, y + height, z]
 
     i = 0
-    while i < len(bottom) - 1:
+    while i < len(bottom) - 2:
         b0 = bottom[i]
         b1 = bottom[i + 1]
-        t0 = top[i]
-        t1 = top[i + 1]
-        add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], t0[0], t0[1], t0[2])
-        add_polygon(polygons, t0[0], t0[1], t0[2], t1[0], t1[1], t1[2], b1[0], b1[1], b1[2])
+        add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], b0[0], b0[1] + height, b0[2])
+        add_polygon(polygons, b0[0], b0[1] + height, b0[2], b1[0], b1[1] + height, b1[2], b1[0], b1[1], b1[2])
         add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], cbot[0], cbot[1], cbot[2])
-        add_polygon(polygons, t0[0], t0[1], t0[2], t1[0], t1[1], t1[2], ctop[0], ctop[1], ctop[2])
+        add_polygon(polygons, b0[0], b0[1] + height, b0[2], b1[0], b1[1] + height, b1[2], ctop[0], ctop[1], ctop[2])
 
 
         i += 1
 
     b0 = bottom[len(bottom) - 1]
     b1 = bottom[0]
-    t0 = top[len(top) - 1]
-    t1 = top[0]
-    add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], t0[0], t0[1], t0[2])
-    add_polygon(polygons, t0[0], t0[1], t0[2], t1[0], t1[1], t1[2], b1[0], b1[1], b1[2])
+    add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], b0[0], b0[1] + height, b0[2])
+    add_polygon(polygons, b0[0], b0[1] + height, b0[2], b1[0], b1[1] + height, b1[2], b1[0], b1[1], b1[2])
     add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], cbot[0], cbot[1], cbot[2])
-    add_polygon(polygons, t0[0], t0[1], t0[2], t1[0], t1[1], t1[2], ctop[0], ctop[1], ctop[2])
+    add_polygon(polygons, b0[0], b0[1] + height, b0[2], b1[0], b1[1] + height, b1[2], ctop[0], ctop[1], ctop[2])
 
 
 def add_box( polygons, x, y, z, width, height, depth ):
