@@ -23,51 +23,58 @@ SPECULAR_EXP = 4
 #lighting functions
 def get_lighting(normal, view, ambient, light, symbols, reflect ):
 
+    print(light)
     n = normal[:]
     normalize(n)
-    normalize(light[LOCATION])
-    normalize(view)
-    r = symbols[reflect][1]
+    for l in light:
+        normalize(l[LOCATION])
+        normalize(view)
+        r = symbols[reflect][1]
 
-    a = calculate_ambient(ambient, r)
-    d = calculate_diffuse(light, r, n)
-    s = calculate_specular(light, r, view, n)
+        a = calculate_ambient(ambient, r)
+        d = calculate_diffuse(l, r, n)
+        s = calculate_specular(l, r, view, n)
 
-    i = [0, 0, 0]
-    i[RED] = int(a[RED] + d[RED] + s[RED])
-    i[GREEN] = int(a[GREEN] + d[GREEN] + s[GREEN])
-    i[BLUE] = int(a[BLUE] + d[BLUE] + s[BLUE])
-    limit_color(i)
+        i = [0, 0, 0]
+        i[RED] = int(a[RED] + d[RED] + s[RED])
+        i[GREEN] = int(a[GREEN] + d[GREEN] + s[GREEN])
+        i[BLUE] = int(a[BLUE] + d[BLUE] + s[BLUE])
+        limit_color(i)
 
     return i
 
 def calculate_ambient(alight, reflect):
+    print(reflect)
+    
     a = [0, 0, 0]
     a[RED] = alight[RED] * reflect['red'][AMBIENT]
     a[GREEN] = alight[GREEN] * reflect['green'][AMBIENT]
     a[BLUE] = alight[BLUE] * reflect['blue'][AMBIENT]
+    print(a)
     return a
 
 def calculate_diffuse(light, reflect, normal):
     d = [0, 0, 0]
 
+    #for l in light:
     dot = dot_product( light[LOCATION], normal)
-
+    
     dot = dot if dot > 0 else 0
-    d[RED] = light[COLOR][RED] * reflect['red'][DIFFUSE] * dot
-    d[GREEN] = light[COLOR][GREEN] * reflect['green'][DIFFUSE] * dot
-    d[BLUE] = light[COLOR][BLUE] * reflect['blue'][DIFFUSE] * dot
+    d[RED] = light[1][RED] * reflect['red'][DIFFUSE] * dot
+    d[GREEN] = light[1][GREEN] * reflect['green'][DIFFUSE] * dot
+    d[BLUE] = light[1][BLUE] * reflect['blue'][DIFFUSE] * dot
     return d
 
 def calculate_specular(light, reflect, view, normal):
     s = [0, 0, 0]
     n = [0, 0, 0]
 
+    #for l in light:
     result = 2 * dot_product(light[LOCATION], normal)
     n[0] = (normal[0] * result) - light[LOCATION][0]
     n[1] = (normal[1] * result) - light[LOCATION][1]
     n[2] = (normal[2] * result) - light[LOCATION][2]
-
+    
     result = dot_product(n, view)
     result = result if result > 0 else 0
     result = pow( result, SPECULAR_EXP )
