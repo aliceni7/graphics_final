@@ -227,6 +227,42 @@ def run(filename):
                 tmp = []
                 reflect = '.white'
 
+            elif c == 'hollow_cone':
+                if command['constants']:
+                    reflect = command['constants']
+                add_cone(tmp, args[0], args[1], args[2], args[3], args[4], args[5], step_3d)
+                matrix_mult( stack[-1], tmp)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                tmp = []
+                reflect = '.white'
+
+            elif c == 'hollow_cylinder':
+                if command['constants']:
+                    reflect = command['constants']
+                add_cylinder(tmp, args[0], args[1], args[2], args[3], args[4], args[5], step_3d)
+                matrix_mult( stack[-1], tmp)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                tmp = []
+                reflect = '.white'
+
+            elif c == 'hollow_prism':
+                if command['constants']:
+                    reflect = command['constants']
+                add_cylinder(tmp, args[0], args[1], args[2], args[3], args[4], args[5], args[6])
+                matrix_mult( stack[-1], tmp)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                tmp = []
+                reflect = '.white'
+
+            elif c == 'hollow_pyramid':
+                if command['constants']:
+                    reflect = command['constants']
+                add_cylinder(tmp, args[0], args[1], args[2], args[3], args[4], args[5], args[7])
+                matrix_mult( stack[-1], tmp)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                tmp = []
+                reflect = '.white'
+
             elif c == 'line':
                 add_edge(tmp,
                          args[0], args[1], args[2], args[3], args[4], args[5])
