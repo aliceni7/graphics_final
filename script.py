@@ -269,7 +269,6 @@ def run(filename):
             elif c == 'light':
                 l = symbols[command['light']]
                 light.append([l[1]['location'],l[1]['color']])
-                #lights.append(l[1]['color'])
                 print(symbols)
 
             elif c == 'push':
