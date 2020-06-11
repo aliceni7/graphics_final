@@ -305,6 +305,7 @@ def run(filename):
             elif c == 'light':
                 l = symbols[command['light']]
                 light.append([l[1]['location'],l[1]['color']])
+                print(symbols)
 
             elif c == 'push':
                 stack.append([x[:] for x in stack[-1]] )
