@@ -140,8 +140,6 @@ def add_cylinder( polygons, x, y, z, radius, height, step):
     add_polygon(polygons, t0[0], t0[1], t0[2], t1[0], t1[1], t1[2], ctop[0], ctop[1], ctop[2])
 
 
-
-
 def add_box( polygons, x, y, z, width, height, depth ):
     x1 = x + width
     y1 = y - height

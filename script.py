@@ -204,6 +204,24 @@ def run(filename):
                 tmp = []
                 reflect = '.white'
 
+            elif c == 'prism':
+                if command['constants']:
+                    reflect = command['constants']
+                add_cylinder(tmp, args[0], args[1], args[2], args[3], args[4], args[5])
+                matrix_mult( stack[-1], tmp)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                tmp = []
+                reflect = '.white'
+
+            elif c == 'pyramid':
+                if command['constants']:
+                    reflect = command['constants']
+                add_cylinder(tmp, args[0], args[1], args[2], args[3], args[4], args[5])
+                matrix_mult( stack[-1], tmp)
+                draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
+                tmp = []
+                reflect = '.white'
+
             elif c == 'line':
                 add_edge(tmp,
                          args[0], args[1], args[2], args[3], args[4], args[5])
@@ -238,12 +256,12 @@ def run(filename):
                 matrix_mult( stack[-1], tmp )
                 stack[-1] = [ x[:] for x in tmp]
                 tmp = []
-                
+
             #set command 2 args: knob name, knob value
             elif c == 'set':
                 n = command['knob']
                 symbols[n][1] = args[0]
-    
+
             elif c == 'push':
                 stack.append([x[:] for x in stack[-1]] )
             elif c == 'pop':
