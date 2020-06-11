@@ -119,7 +119,7 @@ def run(filename):
               255,
               255]]
     light = []
-    #light.append(lights)
+    light.append(lights)
 
     color = [0, 0, 0]
     symbols['.white'] = ['constants',

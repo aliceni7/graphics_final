@@ -26,8 +26,6 @@ def get_lighting(normal, view, ambient, light, symbols, reflect ):
     r = symbols[reflect][1]
     i = [0, 0, 0]
     for l in light:
-        print("l")
-        print(l)
         n = normal[:]
         normalize(n)
         normalize(l[LOCATION])
