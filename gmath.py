@@ -23,11 +23,14 @@ SPECULAR_EXP = 4
 #lighting functions
 def get_lighting(normal, view, ambient, light, symbols, reflect ):
 
+    print(light)
     n = normal[:]
     normalize(n)
-    normalize(light[LOCATION])
+    for l in light:
+        normalize(l[LOCATION])
     normalize(view)
     r = symbols[reflect][1]
+    
 
     a = calculate_ambient(ambient, r)
     d = calculate_diffuse(light, r, n)
@@ -42,39 +45,44 @@ def get_lighting(normal, view, ambient, light, symbols, reflect ):
     return i
 
 def calculate_ambient(alight, reflect):
+    print(reflect)
+    
     a = [0, 0, 0]
     a[RED] = alight[RED] * reflect['red'][AMBIENT]
     a[GREEN] = alight[GREEN] * reflect['green'][AMBIENT]
     a[BLUE] = alight[BLUE] * reflect['blue'][AMBIENT]
+    print(a)
     return a
 
 def calculate_diffuse(light, reflect, normal):
     d = [0, 0, 0]
 
-    dot = dot_product( light[LOCATION], normal)
+    for l in light:
+        dot = dot_product( l[LOCATION], normal)
 
-    dot = dot if dot > 0 else 0
-    d[RED] = light[COLOR][RED] * reflect['red'][DIFFUSE] * dot
-    d[GREEN] = light[COLOR][GREEN] * reflect['green'][DIFFUSE] * dot
-    d[BLUE] = light[COLOR][BLUE] * reflect['blue'][DIFFUSE] * dot
+        dot = dot if dot > 0 else 0
+        d[RED] = l[1][RED] * reflect['red'][DIFFUSE] * dot
+        d[GREEN] = l[1][GREEN] * reflect['green'][DIFFUSE] * dot
+        d[BLUE] = l[1][BLUE] * reflect['blue'][DIFFUSE] * dot
     return d
 
 def calculate_specular(light, reflect, view, normal):
     s = [0, 0, 0]
     n = [0, 0, 0]
 
-    result = 2 * dot_product(light[LOCATION], normal)
-    n[0] = (normal[0] * result) - light[LOCATION][0]
-    n[1] = (normal[1] * result) - light[LOCATION][1]
-    n[2] = (normal[2] * result) - light[LOCATION][2]
+    for l in light:
+        result = 2 * dot_product(l[LOCATION], normal)
+        n[0] = (normal[0] * result) - l[LOCATION][0]
+        n[1] = (normal[1] * result) - l[LOCATION][1]
+        n[2] = (normal[2] * result) - l[LOCATION][2]
+        
+        result = dot_product(n, view)
+        result = result if result > 0 else 0
+        result = pow( result, SPECULAR_EXP )
 
-    result = dot_product(n, view)
-    result = result if result > 0 else 0
-    result = pow( result, SPECULAR_EXP )
-
-    s[RED] = light[COLOR][RED] * reflect['red'][SPECULAR] * result
-    s[GREEN] = light[COLOR][GREEN] * reflect['green'][SPECULAR] * result
-    s[BLUE] = light[COLOR][BLUE] * reflect['blue'][SPECULAR] * result
+        s[RED] = l[COLOR][RED] * reflect['red'][SPECULAR] * result
+        s[GREEN] = l[COLOR][GREEN] * reflect['green'][SPECULAR] * result
+        s[BLUE] = l[COLOR][BLUE] * reflect['blue'][SPECULAR] * result
     return s
 
 def limit_color(color):
