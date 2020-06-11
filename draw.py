@@ -95,7 +95,7 @@ def add_cone( polygons, x, y, z, radius, height, step):
     top = [x, y + height, z]
 
     i = 0
-    while i < len(circle) - 2:
+    while i < len(circle) - 1:
         p0 = circle[i]
         p1 = circle[i + 1]
         add_polygon(polygons, p0[0], p0[1], p0[2], p1[0], p1[1], p1[2], top[0], top[1], top[2])
@@ -116,7 +116,7 @@ def add_hollow_cone( polygons, x, y, z, radius, height, thickness, step):
     ti = [x, y + height - thickness, z]
 
     i = 0
-    while i < len(outer) - 2:
+    while i < len(outer) - 1:
         o0 = outer[i]
         o1 = outer[i + 1]
         i0 = inner[i]
