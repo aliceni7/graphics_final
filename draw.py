@@ -196,7 +196,7 @@ def add_hollow_cylinder( polygons, x, y, z, radius, height, thickness, step ):
         ti1 = [bi1[0], bi1[1] + height, bi1[2]] #top inner 1
 
         #outside
-<<<<<<< HEAD
+
         add_polygon( polygons, bo0[0], bo0[1], bo0[2], bo1[0], bo1[1], bo1[2], to1[0], to1[1], to1[2])
         add_polygon( polygons, to0[0], to0[1], to0[2], bo0[0], bo0[1], bo0[2], to1[0], to1[1], to1[2])
 
@@ -210,7 +210,7 @@ def add_hollow_cylinder( polygons, x, y, z, radius, height, thickness, step ):
 
         add_polygon( polygons, ti1[0], ti1[1], ti1[2], to0[0], to0[1], to0[2], to1[0], to1[1], to1[2])
         add_polygon( polygons, ti0[0], ti0[1], ti0[2], to0[0], to0[1], to0[2], ti1[0], ti1[1], ti1[2])
-=======
+
         add_polygon( polygons, bo0[0], bo0[1], bo0[2], bo1[0], bo1[1], bo1[2], to0[0], to0[1], to0[2])
         #add_polygon( polygons, to0[0], to0[1], to0[2], bo1[0], bo1[1], bo1[2], to1[0], to1[1], to1[2])
         add_polygon( polygons, to0[0], to0[1], to0[2], to1[0], to1[1], to1[2], bo1[0], bo1[1], bo1[2])
@@ -228,7 +228,7 @@ def add_hollow_cylinder( polygons, x, y, z, radius, height, thickness, step ):
         add_polygon( polygons, to0[0], to0[1], to0[2], to1[0], to1[1], to1[2], ti0[0], ti0[1], ti0[2])
         #add_polygon( polygons, ti0[0], ti0[1], ti0[2], to1[0], to1[1], to1[2], ti1[0], ti1[1], ti1[2])
         add_polygon( polygons, ti0[0], ti0[1], ti0[2], ti1[0], ti1[1], ti1[2], to1[0], to1[1], to1[2])
->>>>>>> 770552e4b9f5ef4868b4e306a3e7d25c66ff89e0
+
         i += 1
 
     bo0 = bottom_outer[-1] #bottom outer 0
@@ -242,7 +242,7 @@ def add_hollow_cylinder( polygons, x, y, z, radius, height, thickness, step ):
     ti1 = [bi1[0], bi1[1] + height, bi1[2]] #top inner 1
 
     #outside
-<<<<<<< HEAD
+
     add_polygon( polygons, bo0[0], bo0[1], bo0[2], bo1[0], bo1[1], bo1[2], to1[0], to1[1], to1[2])
     add_polygon( polygons, to0[0], to0[1], to0[2], bo0[0], bo0[1], bo0[2], to1[0], to1[1], to1[2])
 
@@ -256,7 +256,7 @@ def add_hollow_cylinder( polygons, x, y, z, radius, height, thickness, step ):
 
     add_polygon( polygons, ti1[0], ti1[1], ti1[2], to0[0], to0[1], to0[2], to1[0], to1[1], to1[2])
     add_polygon( polygons, ti0[0], ti0[1], ti0[2], to0[0], to0[1], to0[2], ti1[0], ti1[1], ti1[2])
-=======
+
     add_polygon( polygons, bo0[0], bo0[1], bo0[2], bo1[0], bo1[1], bo1[2], to0[0], to0[1], to0[2])
     #add_polygon( polygons, to0[0], to0[1], to0[2], bo1[0], bo1[1], bo1[2], to1[0], to1[1], to1[2])
     add_polygon( polygons, to0[0], to0[1], to0[2], to1[0], to1[1], to1[2], bo1[0], bo1[1], bo1[2])
@@ -274,7 +274,7 @@ def add_hollow_cylinder( polygons, x, y, z, radius, height, thickness, step ):
     add_polygon( polygons, to0[0], to0[1], to0[2], to1[0], to1[1], to1[2], ti0[0], ti0[1], ti0[2])
     #add_polygon( polygons, ti0[0], ti0[1], ti0[2], to1[0], to1[1], to1[2], ti1[0], ti1[1], ti1[2])
     add_polygon( polygons, ti0[0], ti0[1], ti0[2], ti1[0], ti1[1], ti1[2], to1[0], to1[1], to1[2])
->>>>>>> 770552e4b9f5ef4868b4e306a3e7d25c66ff89e0
+
 
 
 def add_box( polygons, x, y, z, width, height, depth ):
