@@ -12,16 +12,52 @@ move 0 0 50
 rotate x 30
 box concrete 0 70 0 500 70 100
 box asphalt 0 50 100 500 50 100
+pop
 
+//bottom of body
 push
 rotate y 80
-move 200 20 0
-rotate x -30
-cone dress 0 0 0 12 40
+move 200 90 0
+cone dress 0 0 0 40 80
 
+//center of head
+push
+move 0 80 0
+sphere skin 0 0 0 38
+pop
+
+//center of body
 push
 move 0 40 0
-sphere skin 0 0 0 11
+
+//left arm
+push
+move -20 0 0
+rotate z 165
+cylinder black 0 0 0 3 20
+pop
+
+//right arm
+push
+move 20 0 0
+rotate x 80
+cylinder black 0 0 0 3 20
+
+//cone
+push
+rotate x 180
+cone icecream_cone 0 20 0 15 40
+
+//ice cream
+push
+rotate 0 22 0
+sphere vanilla 0 0 0 25
+sphere strawberry 0 23 0 25
+
+
+
+
+
 
 
 save icecream.png
