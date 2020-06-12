@@ -472,11 +472,11 @@ def p_command_light(p):
 
 def p_command_move_light(p):
     """command : MOVE_LIGHT SYMBOL NUMBER NUMBER NUMBER 
-             | MOVE_LIGHT SYMBOL NUMBER NUMBER NUMBER SYMBOL"""
+               | MOVE_LIGHT SYMBOL NUMBER NUMBER NUMBER SYMBOL"""
     cmd = {'op' : p[1], 'symbols' : None, 'args' : None, 'knob' : None}
     a = 1
     if isinstance(p[1], str):
-        cmd['symbols'] = [p[1]]
+        cmd['symbols'] = [p[a]]
         a += 1
     if len(p) == 6 and isinstance(p[5], str):
         cmd['knob'] = p[5]
