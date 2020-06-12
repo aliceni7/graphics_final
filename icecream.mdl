@@ -16,8 +16,8 @@ pop
 
 //bottom of body
 push
-rotate y 80
 move 200 90 0
+rotate y 80
 cone dress 0 0 0 40 80
 
 //center of head
