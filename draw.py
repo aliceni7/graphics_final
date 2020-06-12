@@ -172,7 +172,7 @@ def add_cylinder( polygons, x, y, z, radius, height, step):
     b0 = bottom[len(bottom) - 1]
     b1 = bottom[0]
     add_polygon(polygons, b0[0], b0[1], b0[2], b1[0], b1[1], b1[2], b0[0], b0[1] + height, b0[2])
-    add_polygon(polygons, b0[0], b0[1] + height, b0[2], b1[0], b1[1], b1[2], b1[0], b1[1] + height, b1[2] )
+    add_polygon(polygons, b0[0], b0[1] + height, b0[2], b1[0], b1[1], b1[2], b1[0], b1[1] + height, b1[2])
     add_polygon(polygons, b0[0], b0[1], b0[2],  cbot[0], cbot[1], cbot[2], b1[0], b1[1], b1[2])
     add_polygon(polygons, b0[0], b0[1] + height, b0[2], b1[0], b1[1] + height, b1[2], ctop[0], ctop[1], ctop[2])
 
@@ -196,19 +196,19 @@ def add_hollow_cylinder( polygons, x, y, z, radius, height, thickness, step ):
         ti1 = [bi1[0], bi1[1] + height, bi1[2]] #top inner 1
 
         #outside
-        add_polygon( polygons, bo0[0], bo0[1], bo0[2], bo1[0], bo1[1], bo1[2], to0[0], to0[1], to0[2])
-        add_polygon( polygons, to0[0], to0[1], to0[2], bo1[0], bo1[1], bo1[2], to1[0], to1[1], to1[2])
+        add_polygon( polygons, bo0[0], bo0[1], bo0[2], bo1[0], bo1[1], bo1[2], to1[0], to1[1], to1[2])
+        add_polygon( polygons, to0[0], to0[1], to0[2], bo0[0], bo0[1], bo0[2], to1[0], to1[1], to1[2])
 
         #inside
-        add_polygon( polygons, bi0[0], bi0[1], bi0[2], ti0[0], ti0[1], ti0[2], bi1[0], bi1[1], bi1[2])
-        add_polygon( polygons, ti0[0], ti0[1], ti0[2], ti1[0], ti1[1], ti1[2], bi1[0], bi1[1], bi1[2])
+        add_polygon( polygons, bi0[0], bi0[1], bi0[2], ti0[0], ti0[1], ti0[2], ti1[0], ti1[1], ti1[2])
+        add_polygon( polygons, bi0[0], bi0[1], bi0[2], ti1[0], ti1[1], ti1[2], bi1[0], bi1[1], bi1[2])
 
         #edges
-        add_polygon( polygons, bo0[0], bo0[1], bo0[2], bi0[0], bi0[1], bi0[2], bo1[0], bo1[1], bo1[2])
-        add_polygon( polygons, bi0[0], bi0[1], bi0[2], bi1[0], bi1[1], bi1[2], bo1[0], bo1[1], bo1[2])
+        add_polygon( polygons, bo0[0], bo0[1], bo0[2], bi0[0], bi0[1], bi0[2], bi1[0], bi1[1], bi1[2])
+        add_polygon( polygons, bi1[0], bi1[1], bi1[2], bo1[0], bo1[1], bo1[2], bo0[0], bo0[1], bo0[2])
 
-        add_polygon( polygons, to0[0], to0[1], to0[2], to1[0], to1[1], to1[2], ti0[0], ti0[1], ti0[2])
-        add_polygon( polygons, ti0[0], ti0[1], ti0[2], to1[0], to1[1], to1[2], ti1[0], ti1[1], ti1[2])
+        add_polygon( polygons, ti1[0], ti1[1], ti1[2], to0[0], to0[1], to0[2], to1[0], to1[1], to1[2])
+        add_polygon( polygons, ti0[0], ti0[1], ti0[2], to0[0], to0[1], to0[2], ti1[0], ti1[1], ti1[2])
         i += 1
 
     bo0 = bottom_outer[-1] #bottom outer 0
@@ -222,19 +222,19 @@ def add_hollow_cylinder( polygons, x, y, z, radius, height, thickness, step ):
     ti1 = [bi1[0], bi1[1] + height, bi1[2]] #top inner 1
 
     #outside
-    add_polygon( polygons, bo0[0], bo0[1], bo0[2], bo1[0], bo1[1], bo1[2], to0[0], to0[1], to0[2])
-    add_polygon( polygons, to0[0], to0[1], to0[2], bo1[0], bo1[1], bo1[2], to1[0], to1[1], to1[2])
+    add_polygon( polygons, bo0[0], bo0[1], bo0[2], bo1[0], bo1[1], bo1[2], to1[0], to1[1], to1[2])
+    add_polygon( polygons, to0[0], to0[1], to0[2], bo0[0], bo0[1], bo0[2], to1[0], to1[1], to1[2])
 
     #inside
-    add_polygon( polygons, bi0[0], bi0[1], bi0[2], ti0[0], ti0[1], ti0[2], bi1[0], bi1[1], bi1[2])
-    add_polygon( polygons, ti0[0], ti0[1], ti0[2], ti1[0], ti1[1], ti1[2], bi1[0], bi1[1], bi1[2])
+    add_polygon( polygons, bi0[0], bi0[1], bi0[2], ti0[0], ti0[1], ti0[2], ti1[0], ti1[1], ti1[2])
+    add_polygon( polygons, bi0[0], bi0[1], bi0[2], ti1[0], ti1[1], ti1[2], bi1[0], bi1[1], bi1[2])
 
     #edges
-    add_polygon( polygons, bo0[0], bo0[1], bo0[2], bi0[0], bi0[1], bi0[2], bo1[0], bo1[1], bo1[2])
-    add_polygon( polygons, bi0[0], bi0[1], bi0[2], bi1[0], bi1[1], bi1[2], bo1[0], bo1[1], bo1[2])
+    add_polygon( polygons, bo0[0], bo0[1], bo0[2], bi0[0], bi0[1], bi0[2], bi1[0], bi1[1], bi1[2])
+    add_polygon( polygons, bi1[0], bi1[1], bi1[2], bo1[0], bo1[1], bo1[2], bo0[0], bo0[1], bo0[2])
 
-    add_polygon( polygons, to0[0], to0[1], to0[2], to1[0], to1[1], to1[2], ti0[0], ti0[1], ti0[2])
-    add_polygon( polygons, ti0[0], ti0[1], ti0[2], to1[0], to1[1], to1[2], ti1[0], ti1[1], ti1[2])
+    add_polygon( polygons, ti1[0], ti1[1], ti1[2], to0[0], to0[1], to0[2], to1[0], to1[1], to1[2])
+    add_polygon( polygons, ti0[0], ti0[1], ti0[2], to0[0], to0[1], to0[2], ti1[0], ti1[1], ti1[2])
 
 
 def add_box( polygons, x, y, z, width, height, depth ):
