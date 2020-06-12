@@ -1,3 +1,6 @@
+frames 50
+basename icecream
+
 constants skin 0.30196078 0.78039216 0.47058824 0.231372549 0.592156862 0.427450980 0.168627450 0.407843137 0.470588235
 constants icecream_cone 0.588235294117647 0.709803921568627 0.0 0.470588235294118 0.47843137254902 0.0 0.364705882352941 0.192156862745098 0.0
 constants strawberry 0.807843137254902 0.749019607843137 0.309803921568627 0.466666666666667 0.368627450980392 0.125490196078431 0.858823529411765 0.768627450980392 0.309803921568627
@@ -6,58 +9,134 @@ constants dress 0.92156862745098 1.0 0.145098039215686 0.368627450980392 0.0 0.1
 constants black 0.0 0.0 0.094117647058824 0.0 0.0 0.152941176470588 0.0 0.0 0.16078431372549
 constants concrete 0.23921568627451 0.231372549019608 0.035294117647059 0.235294117647059 0.207843137254902 0.03921568627451 0.235294117647059 0.207843137254902 0.03921568627451
 constants asphalt 0.003921568627451 0.007843137254902 0.082352941176471 0.003921568627451 0.027450980392157 0.105882352941176 0.019607843137255 0.07843137254902 0.109803921568627
+constants tear 0.215686274509804 0.066666666666667 0.419607843137255 0.231372549019608 0.164705882352941 0.164705882352941 0.411764705882353 0.670588235294118 0.419607843137255
+constants leaves 0.16078431372549 0.054901960784314 0.431372549019608 0.090196078431373 0.419607843137255 0.227450980392157 0.027450980392157 0.019607843137255 0.431372549019608
+constants trunk 0.141176470588235 0.141176470588235 0.090196078431373 0.101960784313725 0.105882352941176 0.043137254901961 0.025490196078431 0.031372549019608 0.019607843137255
 
+light sun 100 100 0 1 5 0
 push
 move 0 0 50
 rotate x 30
-box concrete 0 70 0 500 70 100
+box concrete 0 70 70 500 70 100
 box asphalt 0 50 100 500 50 100
 pop
 
 //bottom of body
 push
-move 200 90 0
+move 200 100 0
 rotate y 80
-cone dress 0 0 0 40 80
+cone dress 0 0 0 60 140
 
 //center of head
 push
-move 0 80 0
-sphere skin 0 0 0 38
+move 0 150 0
+sphere skin 0 0 0 50
+
+//tears
+move -100 0 0
+move 0 10 60
+move 0 -100 0 tear1
+sphere tear 0 0 0 5
+move 0 -90 0 tear2
+sphere tear 0 0 0 5
+move 0 -80 0 tear3
+sphere tear 0 0 0 5
+move 0 -70 0 tear4
+sphere tear 0 0 0 5
+move 0 -50 0 tear5
+sphere tear 0 0 0 5
+move 0 -40 0 tear6
+sphere tear 0 0 0 5
+move 0 -30 0 tear7
+sphere tear 0 0 0 5
 pop
 
 //center of body
 push
-move 0 40 0
+move 0 70 0
 
 //left arm
+//push
+//move -20 0 0
+//rotate z 165
+//cylinder black 0 0 0 3 20
+//pop
+
+//legs
 push
-move -20 0 0
-rotate z 165
-cylinder black 0 0 0 3 20
+move -100 -120 0
+cylinder black 0 0 0 5 50
+push
+move 0 0 40
+cylinder black 0 0 0 5 50
+pop
+rotate x 90
+move -15 3 0
+cylinder black 0 -5 0 5 20
+move 40 0 40
+cylinder black 0 0 0 5 20
 pop
 
 //right arm
 push
 move 20 0 0
 rotate x 80
-cylinder black 0 0 0 3 20
+cylinder black 0 0 0 5 60
 
 //cone
 push
-rotate x 180
-cone icecream_cone 0 20 0 15 40
+rotate x 90
+move 425 0 0
+cone icecream_cone 0 -25 0 20 50
 
 //ice cream
 push
 rotate 0 22 0
-sphere vanilla 0 0 0 25
-sphere strawberry 0 23 0 25
+rotate x 90 fall
+rotate x 70 fall2
+move 0 -25 0 fall3
+move 0 -70 0
+sphere vanilla 0 0 0 20
+sphere strawberry 0 23 0 20
+pop
+pop
+pop
+pop
+pop
 
+//trees
+push
+move 400 70 0
+cylinder trunk 0 0 0 25 130
+move 0 130 -40
+cone leaves 0 0 0 80 200
+move 30 30 0
+cone leaves 0 0 0 118 270
+move 0 -160 -100
+cylinder trunk 0 0 0 25 160
+pop
+push
+move 100 70 0
+cylinder trunk 0 0 0 25 145
+move 0 145 -100
+cone leaves 0 0 0 100 280
+pop
 
+//sun
+push
+move 300 450 0
+sphere vanilla 0 0 0 60
 
+vary fall 0 20 0 1
+vary fall2 21 40 0 1
+vary fall3 41 49 0 1
 
-
-
+vary tear1 10 19 0 1
+vary tear2 19 25 0 1
+vary tear3 26 30 0 1
+vary tear4 31 36 0 1
+vary tear5 37 41 0 1
+vary tear6 42 46 0 1
+vary tear7 47 49 0 1
 
 save icecream.png
