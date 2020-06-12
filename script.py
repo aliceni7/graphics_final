@@ -307,11 +307,23 @@ def run(filename):
                 l = symbols[command['light']]
                 light.append([l[1]['color'],l[1]['location']])
                 #print(symbols)
+
+            elif c == 'move_light':
+                if command['knob']:
+                    knob_value = symbols[command['knob']][1]
+                m = [args[0] * knob_value, args[1] * knob_value, args[2] * knob_value]
+                if command['symbols']:
+                    for s in command['symbols']:
+                        light[s][0] = [light[s][0][0] + m[0], light[s][0][1] + m[1], light[s][0][2] + m[2]]
+                        symbols[s][1]['location'] = light[s][0]
+                else:
+                    for l in light:
+                        light[l][0] = [light[l][0][0] + m[0], light[l][0][1] + m[1], light[l][0][2] + m[2]]
+                        symbols[l][1]['location'] = light[l][0]
                 
             elif c == 'save_coord_system':
                 c = [x[:] for x in stack[-1]]
                 symbols[command['cs']][1] = c
-                print(symbols[command['cs']])
 
             elif c == 'push':
                 stack.append([x[:] for x in stack[-1]] )
