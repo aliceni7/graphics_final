@@ -259,7 +259,7 @@ def run(filename):
             elif c == 'hollow_pyramid':
                 if command['constants']:
                     reflect = command['constants']
-                add_hollow_cylinder(tmp, args[0], args[1], args[2], args[3], args[4], args[5], args[6])
+                add_hollow_cone(tmp, args[0], args[1], args[2], args[3], args[4], args[5], args[6])
                 matrix_mult( stack[-1], tmp)
                 draw_polygons(tmp, screen, zbuffer, view, ambient, light, symbols, reflect)
                 tmp = []
@@ -304,9 +304,15 @@ def run(filename):
             elif c == 'set':
                 n = command['knob']
                 symbols[n][1] = args[0]
+                
             elif c == 'light':
                 l = symbols[command['light']]
                 light.append([l[1]['color'],l[1]['location']])
+                #print(symbols)
+                
+            elif c == 'save_coord_system':
+                c = [x[:] for x in stack[-1]]
+                symbols[command['cs']][1] = c
                 print(symbols)
 
             elif c == 'push':
