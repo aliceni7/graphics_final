@@ -8,6 +8,7 @@ tokens = (
     "INT",
     "COMMENT",
     "LIGHT",
+    "MOVE_LIGHT",
     "CONSTANTS",
     "SAVE_COORDS",
     "CAMERA",
@@ -55,6 +56,7 @@ reserved = {
     "z" : "XYZ",
     "screen" : "SCREEN",
     "light" : "LIGHT",
+    "move_light" : "MOVE_LIGHT",
     "constants" : "CONSTANTS",
     "save_coord_system" : "SAVE_COORDS",
     "camera" : "CAMERA",
@@ -466,6 +468,23 @@ def p_command_light(p):
     symbols[p[2]] = ['light', {'location' : p[3:6], 'color' : p[6:]}]
     cmd = {'op':p[1], 'args' : None, 'light' : p[2] }
     cmd['args']=p[3:]
+    commands.append(cmd)
+
+def p_command_move_light(p):
+    """command : MOVE_LIGHT SYMBOL NUMBER NUMBER NUMBER 
+             | MOVE_LIGHT SYMBOL NUMBER NUMBER NUMBER SYMBOL"""
+    cmd = {'op' : p[1], 'symbols' : None, 'args' : None, 'knob' : None}
+    a = 1
+    if isinstance(p[1], str):
+        cmd['symbols'] = [p[1]]
+        a += 1
+    if len(p) == 6 and isinstance(p[5], str):
+        cmd['knob'] = p[5]
+        symbols[p[5]] = ['knob', 0]
+    elif len(p) == 7 and isinstance(p[6], str):
+        cmd['knob'] = p[6]
+        symbols[p[6]] = ['knob', 0]
+    cmd['args'] = p[a: a + 3]
     commands.append(cmd)
 
 def p_command_shading(p):
