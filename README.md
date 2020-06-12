@@ -13,7 +13,8 @@ New shapes:
 * Hollow Prisms (x, y, z, radius, height, thickness, sides)
 
 Existing MDL commands:
-* light
-* save_coordinate_system
-* set
-* tween
+* light : user can input multiple point light sources (name, r, g, b, x, y, z)
+* set : sets the value of a knob (knobname, value)
+
+Additions to MDL language:
+* using vary to move lights
