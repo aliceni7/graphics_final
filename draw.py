@@ -123,14 +123,14 @@ def add_hollow_cone( polygons, x, y, z, radius, height, thickness, step):
         i1 = inner[i + 1]
 
         #outer
-        add_polygon( polygons, o0[0], o0[1], o0[2], o1[0], o1[1], o1[2], to[0], to[1], to[2])
+        add_polygon( polygons, o0[0], o0[1], o0[2], to[0], to[1], to[2], o1[0], o1[1], o1[2])
 
         #inner
-        add_polygon( polygons, i1[0], i1[1], i1[2], i0[0], i0[1], i0[2], ti[0], ti[1], ti[2])
+        add_polygon( polygons, i1[0], i1[1], i1[2], ti[0], ti[1], ti[2], i0[0], i0[1], i0[2])
 
         #edge
-        add_polygon( polygons, o0[0], o0[1], o0[2], i0[0], i0[1], i0[2], o1[0], o1[1], o1[2])
-        add_polygon( polygons, i0[0], i0[1], i0[2], i1[0], i1[1], i1[2], o1[0], o1[1], o1[2])
+        add_polygon( polygons, o0[0], o0[1], o0[2], o1[0], o1[1], o1[2], i0[0], i0[1], i0[2])
+        add_polygon( polygons, i0[0], i0[1], i0[2], o1[0], o1[1], o1[2], i1[0], i1[1], i1[2])
         i += 1
 
     o0 = outer[-1]
@@ -139,14 +139,14 @@ def add_hollow_cone( polygons, x, y, z, radius, height, thickness, step):
     i1 = inner[0]
 
     #outer
-    add_polygon( polygons, o0[0], o0[1], o0[2], o1[0], o1[1], o1[2], to[0], to[1], to[2])
+    add_polygon( polygons, o0[0], o0[1], o0[2], to[0], to[1], to[2], o1[0], o1[1], o1[2])
 
     #inner
-    add_polygon( polygons, i1[0], i1[1], i1[2], i0[0], i0[1], i0[2], ti[0], ti[1], ti[2])
+    add_polygon( polygons, i1[0], i1[1], i1[2], ti[0], ti[1], ti[2], i0[0], i0[1], i0[2])
 
     #edge
-    add_polygon( polygons, o0[0], o0[1], o0[2], i0[0], i0[1], i0[2], o1[0], o1[1], o1[2])
-    add_polygon( polygons, i0[0], i0[1], i0[2], i1[0], i1[1], i1[2], o1[0], o1[1], o1[2])
+    add_polygon( polygons, o0[0], o0[1], o0[2], o1[0], o1[1], o1[2], i0[0], i0[1], i0[2])
+    add_polygon( polygons, i0[0], i0[1], i0[2], o1[0], o1[1], o1[2], i1[0], i1[1], i1[2])
 
 
 
